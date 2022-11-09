@@ -50,30 +50,6 @@ vim.notify = function (msg, log_level, _opts)
 vim.opt.termguicolors = true
 vim.cmd('colorscheme nord')
 
----
--- Titus Custom Markdown HUGO Image Insert
----
-require'clipboard-image'.setup {
-  markdown = {
-   img_dir = {"content/images", "%:p:h:t", "%:t:r"},
-   img_dir_txt = {"/images", "%:p:h:t", "%:t:r"},
-   img_name = function ()
-      vim.fn.inputsave()
-      local name = vim.fn.input('Name: ')
-      vim.fn.inputrestore()
-
-      if name == nil or name == '' then
-        return os.date('%y-%m-%d-%H-%M-%S')
-      end
-      return name
-    end,
-    img_handler = function ()
-        return function (path)
-            return os.execute(string.format('~/.scripts/tinypng -s -f %s &', path))
-        end
-    end
-  }
-}
 
 -- LSP and Linting Config
 require("mason").setup()
